@@ -2,14 +2,13 @@ from midiFile import MidiFile
 
 class Track:
 
-    #Default
+    #Constantes
     CHANNEL = 0
     DURATION = 0
     BPM = 60
 
     def __init__(self, numberTracks, time = 0):
         self.track = 0
-        self.time = 0
         self.octave = 0
         self.instrument = 25
         self.time = time
@@ -17,16 +16,11 @@ class Track:
         self.changeInstrument(self.instrument)
 
 
-    def newTrack(self, trackName="", tempo=BPM):
+    def newTrack(self, tempo=BPM):
         self.track =+ 1
         self.tempo = tempo
 
         self.mf.addTrack(self.track, self.time, self.tempo)
-        
-        if(trackName == ""):
-            self.trackName = str(self.track)
-        else:
-            self.trackName = trackName
 
     def addNote(self, pitch, volume, duration=1, channel=CHANNEL, track=None, pause=0):
         if track is None:
