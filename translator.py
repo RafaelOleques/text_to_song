@@ -29,7 +29,5 @@ class Translator:
         'B+': 'BPM_PLUS_50',
         'B-': 'BPM_MINUS_50',
 
-        
-
         '\n': 'CHANGE_INSTRUMENT'
     }

@@ -1,4 +1,4 @@
 from generator import Generator
 
-criar = Generator("aa", "daleeee")
+criar = Generator("aa", "Uhuul")
 criar.generate_song()

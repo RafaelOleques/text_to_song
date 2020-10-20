@@ -1,4 +1,4 @@
-from midiutil.MidiFile import MIDIFile
+from midiFile import MidiFile
 
 class Track:
 
@@ -6,16 +6,14 @@ class Track:
     CHANNEL = 0
     DURATION = 0
     BPM = 60
-    track = 0
-    time = 0
-    octave = 0
-    instrument = 25
 
-    def __init__(self, numberTracks, _time = time):
-        self.mf = MIDIFile(numberTracks)
-        self.time = _time
-        self.mf.addTrackName(self.track, self.time, str(self.track))
-        self.mf.addTempo(self.track, self.time, self.BPM)
+    def __init__(self, numberTracks, time = 0):
+        self.track = 0
+        self.time = 0
+        self.octave = 0
+        self.instrument = 25
+        self.time = time
+        self.mf = MidiFile(numberTracks, self.track, self.BPM, self.time)
         self.changeInstrument(self.instrument)
 
 
@@ -23,29 +21,27 @@ class Track:
         self.track =+ 1
         self.tempo = tempo
 
-        self.mf.addTempo(self.track, self.time, tempo)
-        self.mf.addTrackName(self.track, self.time, str(self.track))
+        self.mf.addTrack(self.track, self.time, self.tempo)
         
         if(trackName == ""):
             self.trackName = str(self.track)
         else:
             self.trackName = trackName
 
-    def addNote(self, pitch, volume, duration=1, channel=CHANNEL, _track=None, pause=0):
-        if _track is None:
-            _track = self.track
+    def addNote(self, pitch, volume, duration=1, channel=CHANNEL, track=None, pause=0):
+        if track is None:
+            track = self.track
 
-        self.mf.addNote(_track, channel, pitch, self.time, duration, volume)
+        self.mf.addNote(track, channel, pitch, self.time, duration, volume)
         self.time += 1+pause
     
-    def changeInstrument(self, _instrument, _track=None, _time=None):
-        if _track is None:
-            _track = self.track
-        if _time is None:
-            _time = self.time
+    def changeInstrument(self, instrument, track=None, time=None):
+        if track is None:
+            track = self.track
+        if time is None:
+            time = self.time
 
-        self.mf.addProgramChange(_track, self.CHANNEL, _time, _instrument)
+        self.mf.changeInstrument(track, self.CHANNEL, time, instrument)
 
     def finishMusic(self, musicName):
-        with open("./musicas/"+musicName+".mid", 'wb') as outf:
-            self.mf.writeFile(outf)
+        self.mf.save(musicName)
