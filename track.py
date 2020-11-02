@@ -11,22 +11,23 @@ class Track:
         self.track = 0
         self.octave = 0
         self.instrument = 25
+        self._volume = 100
         self.time = time
         self.mf = MidiFile(numberTracks, self.track, self.BPM, self.time)
         self.changeInstrument(self.instrument)
 
 
     def newTrack(self, tempo=BPM):
-        self.track =+ 1
+        self.track += 1
         self.tempo = tempo
 
         self.mf.addTrack(self.track, self.time, self.tempo)
 
-    def addNote(self, pitch, volume, duration=1, channel=CHANNEL, track=None, pause=0):
+    def addNote(self, pitch, duration=1, channel=CHANNEL, track=None, pause=0):
         if track is None:
             track = self.track
 
-        self.mf.addNote(track, channel, pitch, self.time, duration, volume)
+        self.mf.addNote(track, channel, pitch, self.time, duration, self._volume)
         self.time += 1+pause
     
     def changeInstrument(self, instrument, track=None, time=None):
