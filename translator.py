@@ -1,50 +1,50 @@
 class Translator:
   TRANSLATION_TABLE = {
-    'C': 60,
-    'D': 62,
-    'E': 64,
-    'F': 65,
-    'G': 67,
-    'A': 69,
-    'B': 71,
-    'a': 'REPEAT_NOTE',
-    'b': 'REPEAT_NOTE',
-    'c': 'REPEAT_NOTE',
-    'd': 'REPEAT_NOTE',
-    'e': 'REPEAT_NOTE',
-    'f': 'REPEAT_NOTE',
-    ' ': 'VOLUME_DOUBLE',
-    '!': 'CHANGE_INSTRUMENT_114',
-    'I': 'CHANGE_INSTRUMENT_7',
-    'O': 'CHANGE_INSTRUMENT_7',
-    'U': 'CHANGE_INSTRUMENT_7',
-    'i': 'CHANGE_INSTRUMENT_7',
-    'o': 'CHANGE_INSTRUMENT_7',
-    'u': 'CHANGE_INSTRUMENT_7',
-    '1': 'CHANGE_INSTRUMENT_PLUS_1',
-    '2': 'CHANGE_INSTRUMENT_PLUS_2',
-    '3': 'CHANGE_INSTRUMENT_PLUS_3',
-    '4': 'CHANGE_INSTRUMENT_PLUS_4',
-    '5': 'CHANGE_INSTRUMENT_PLUS_5',
-    '6': 'CHANGE_INSTRUMENT_PLUS_6',
-    '7': 'CHANGE_INSTRUMENT_PLUS_7',
-    '8': 'CHANGE_INSTRUMENT_PLUS_8',
-    '9': 'CHANGE_INSTRUMENT_PLUS_9',
-    '?': 'OCTAVE_UP',
-    '.': 'OCTAVE_UP',
-    '\n': 'CHANGE_INSTRUMENT_15',
-    ';': 'CHANGE_INSTRUMENT_76',
-    ',': 'CHANGE_INSTRUMENT_20',
-    '-': 'VOLUME_DEFAULT',
-    '+': 'VOLUME_DOUBLE',
-    'b+': 'BPM_PLUS_50',
-    'b-': 'BPM_MINUS_50',
-    'o+': 'OCTAVE_UP',
-    'o-': 'OCTAVE_DOWN',
+    'C': ('addNote', 60),
+    'D': ('addNote', 62),
+    'E': ('addNote', 64),
+    'F': ('addNote', 65),
+    'G': ('addNote', 67),
+    'A': ('addNote', 69),
+    'B': ('addNote', 71),
+    'a': ('repeatNote', True),
+    'b': ('repeatNote', True),
+    'c': ('repeatNote', True),
+    'd': ('repeatNote', True),
+    'e': ('repeatNote', True),
+    'f': ('repeatNote', True),
+    ' ': ('multiplyVolume', 2),
+    '!': ('setInstrument', 114),
+    'I': ('setInstrument', 7),
+    'O': ('setInstrument', 7),
+    'U': ('setInstrument', 7),
+    'i': ('setInstrument', 7),
+    'o': ('setInstrument', 7),
+    'u': ('setInstrument', 7),
+    '1': ('changeInstrument', 1),
+    '2': ('changeInstrument', 2),
+    '3': ('changeInstrument', 3),
+    '4': ('changeInstrument', 4),
+    '5': ('changeInstrument', 5),
+    '6': ('changeInstrument', 6),
+    '7': ('changeInstrument', 7),
+    '8': ('changeInstrument', 8),
+    '9': ('changeInstrument', 9),
+    '?': ('changeOctave', 1),
+    '.': ('changeOctave', 1),
+    '\n': ('setInstrument', 15),
+    ';': ('setInstrument', 76),
+    ',': ('setInstrument', 20),
+    '-': ('volumeDefault', True),
+    '+': ('multiplyVolume', 2),
+    'b+': ('changeBPM', 50),
+    'b-': ('changeBPM', -50),
+    'o+': ('changeOctave', 1),
+    'o-': ('changeOctave', -1),
   }
 
-  # EX entrada: 'A-Db+?b\nk'
-  # EX saida: ['A', 'VOLUME_DEFAULT', 'D', 'BPM_PLUS_50', 'OCTAVE_UP', 'REPEAT_NOTE', 'CHANGE_INSTRUMENT_15', 'REPEAT_NOTE']
+  # EX entrada: 'CDE9F'
+  # EX saida: [('addNote', 60), ('addNote', 62), ('addNote', 64), ('changeInstrument', 9), ('addNote', 65)]
 
   def translate_text_to_instructions(self, text):
     split_text = []
@@ -59,11 +59,11 @@ class Translator:
       try:
         instructions_seq.append( self.TRANSLATION_TABLE[char] )
       except:
-        instructions_seq.append( 'REPEAT_NOTE' )
+        instructions_seq.append( ('repeatNote', True) )
     return instructions_seq
 
 if __name__ == "__main__":
   trad = Translator()
-  texto = "a-Db+?b\nkqs9we-d -e9hf9ifwbefoqri0e"
+  texto = "CDE9FGABD"
   print('entrada:', texto)
   print('saida:', trad.translate_text_to_instructions(texto))
