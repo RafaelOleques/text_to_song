@@ -13,6 +13,9 @@ class MidiFile:
     def addNote(self, track, channel, pitch, time, duration, volume):
         self.mf.addNote(track, channel, pitch, time, duration, volume)
 
+    def addTempo(self, track, time, bpm):
+        self.mf.addTempo(track, time, bpm)
+
     def changeInstrument(self, track, channel, time, instrument):
         self.mf.addProgramChange(track, channel, time, instrument)
 
