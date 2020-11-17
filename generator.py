@@ -11,10 +11,10 @@ class Generator:
 
     self._text = input_converter.get_text()
     self._instructions = translator.translate_text_to_instructions(self._text)
-    self._track = Track(1)
     self._musicName = musicName
     self._initial_bpm = initialBPM
     self._initialInstrument = initialInstrument
+    self._track = Track(1, self._initial_bpm, self._initialInstrument)
 
   def generate_song(self):
     METHOD = 0
@@ -28,6 +28,6 @@ class Generator:
     self._track.finishMusic(self._musicName)
 
 if __name__ == "__main__":
-  text = ('text', 'CDE9FGABD')
-  generator = Generator(text, 'Testando_generator', 120, 100)
+  text = ('text', 'CDE9F GABD')
+  generator = Generator(text, 'Testando_generator', 60, 25)
   generator.generate_song()
