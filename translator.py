@@ -43,6 +43,7 @@ class Translator:
     'o-': ('changeOctave', -1),
   }
 
+  # Recebe um texto não formatado como entrada e retorna um array de tuplas <instrução, argumento da instrução>.
   # EX entrada: 'CDE9F'
   # EX saida: [('addNote', 60), ('addNote', 62), ('addNote', 64), ('changeInstrument', 9), ('addNote', 65)]
 

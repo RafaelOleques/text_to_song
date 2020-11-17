@@ -2,7 +2,8 @@ from input_information_converter import Input_information_converter
 from track import Track
 from translator import Translator
 
-
+# Interpreta a lista de instruções gerada pela classe Translator e usa a instrução interpretada
+# para chamar o devido método da classe Track. Após processar todas as instruções, gera um arquivo MIDI
 class Generator:
 
   def __init__(self, inputt, musicName, initialBPM, initialInstrument):
@@ -26,3 +27,4 @@ class Generator:
       callTrackMethod = getattr(self._track, method, 'repeatNote')
       callTrackMethod(arg)
     self._track.finishMusic(self._music_name)
+    return self._text
