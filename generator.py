@@ -1,6 +1,7 @@
-from translator import Translator
-from track import Track
 from input_information_converter import Input_information_converter
+from track import Track
+from translator import Translator
+
 
 class Generator:
 
