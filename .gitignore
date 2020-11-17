@@ -1,3 +1,5 @@
 musicas/*midi
+musicas/*.mid
 __pycache__/
 .vscode/
+*.wav
