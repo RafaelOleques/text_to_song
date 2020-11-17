@@ -61,9 +61,3 @@ class Translator:
       except:
         instructions_seq.append( ('repeatNote', True) )
     return instructions_seq
-
-if __name__ == "__main__":
-  trad = Translator()
-  texto = "CDE9FGABD"
-  print('entrada:', texto)
-  print('saida:', trad.translate_text_to_instructions(texto))

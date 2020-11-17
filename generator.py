@@ -11,7 +11,7 @@ class Generator:
 
     self._text = input_converter.get_text()
     self._instructions = translator.translate_text_to_instructions(self._text)
-    self._musicName = musicName
+    self._music_name = musicName
     self._initial_bpm = initialBPM
     self._initialInstrument = initialInstrument
     self._track = Track(1, self._initial_bpm, self._initialInstrument)
@@ -25,9 +25,4 @@ class Generator:
       arg = instruction[ARG]
       callTrackMethod = getattr(self._track, method, 'repeatNote')
       callTrackMethod(arg)
-    self._track.finishMusic(self._musicName)
-
-if __name__ == "__main__":
-  text = ('text', 'CDE9F GABD')
-  generator = Generator(text, 'Testando_generator', 60, 25)
-  generator.generate_song()
+    self._track.finishMusic(self._music_name)
