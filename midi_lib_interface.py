@@ -1,6 +1,6 @@
 from midiutil.MidiFile import MIDIFile
 
-class MidiFile:
+class Midi_lib_interface:
     def __init__(self, numberTracks, track, bpm, time):
         self.mf = MIDIFile(numberTracks)
         self.mf.addTrackName(track, time, str(track))

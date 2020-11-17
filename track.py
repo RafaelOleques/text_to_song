@@ -1,4 +1,4 @@
-from midiFile import MidiFile
+from midi_lib_interface import Midi_lib_interface as MidiFile
 
 class Track:
 
@@ -22,7 +22,7 @@ class Track:
     self._time = time
     self._bpm = self.BPM
     # Criação do objeto MidiFile o qual adicionaremos as notas e editaremos os parâmetros da música
-    self._mf = MidiFile(numberTracks, self.getTrack(), self.getBpm(), self.getTime())
+    self._lib_interface = MidiFile(numberTracks, self.getTrack(), self.getBpm(), self.getTime())
     # Booleano que indica se o último método chamado foi o AddNote()
     self._last_method_is_addnote = False
     # Variável que salva a última nota tocada
@@ -74,7 +74,7 @@ class Track:
     else:
       self._instrument = instrument
 
-    self._mf.changeInstrument(track, self.CHANNEL, time, self.getInstrument())
+    self._lib_interface.changeInstrument(track, self.CHANNEL, time, self.getInstrument())
 
   def getVolume(self):
     return self._volume
@@ -133,7 +133,7 @@ class Track:
     # Calcula a nota na oitava pedida
     pitch_in_octave = pitch + self.getOctave() * OCTAVE_SIZE
 
-    self._mf.addNote(track, channel, pitch_in_octave, time, duration, volume)
+    self._lib_interface.addNote(track, channel, pitch_in_octave, time, duration, volume)
     self.setLastPitch(pitch)
     # Avança uma posição na linha do tempo do MidiFile
     self.setTime(self.getTime() + 1 + pause)
@@ -167,7 +167,7 @@ class Track:
     self.setLastMethodIsAddnote(False)
     self.setBpm(self.getBpm() + diff)
 
-    self._mf.addTempo(self.getTrack(), self.getTime(), self.getBpm())
+    self._lib_interface.addTempo(self.getTrack(), self.getTime(), self.getBpm())
 
   def finishMusic(self, musicName):
-    self._mf.save(musicName)
+    self._lib_interface.save(musicName)
