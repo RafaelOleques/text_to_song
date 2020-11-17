@@ -17,6 +17,8 @@ class Generator:
     self._initialInstrument = initialInstrument
     self._track = Track(1, self._initial_bpm, self._initialInstrument)
 
+  # Saída: um arquivo .mid é gerado
+  # Retorna: o próprio texto de entrada
   def generate_song(self):
     METHOD = 0
     ARG = 1
